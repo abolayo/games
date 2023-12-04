@@ -66,7 +66,6 @@ def sufficient():
             or
             (coffee < MENU[choose]['ingredients']['coffee'])):
         print("insufficient ingredients available")
-        report()
         exit()
 
 
@@ -90,10 +89,20 @@ def process_coins(quarter, dime, nickle, penny):
         print(f"Here is your {choose} enjoy it.")
 
 
-# make_coffee = True
+def ask_more():
+    more = input('Would you still like to order more coffee . Type "y for yes: ').lower()
+    if more == 'y':
+        choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
+        if choose == "report":
+            report()
+    else:
+        print("Thank you for the purchase! Bye")
+        exit()
+
+
+make_coffee = True
 # TODO 5. Make coffee
-def make_coffee():
-    global choose
+while make_coffee:
     sufficient()
     print('Please insert the coins.')
     quarter = int(input('How many quarters?: '))
@@ -101,24 +110,17 @@ def make_coffee():
     nickle = int(input('How many nickles?: '))
     penny = int(input('How many pennies?: '))
     process_coins(quarter, dime, nickle, penny)
-
-    more = input('Would you still like to order more coffee . Type "y for yes: ').lower()
-    if more == 'y':
-        choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
-        make_coffee()
-    else:
-        print("Thank you for the purchase! Bye")
-        exit()
+    ask_more()
 
 
 if choose != "report":
-    make_coffee()
+    make_coffee = True
 else:
     report()
     order = input('Would you still like to order. Type "y for yes: ').lower()
     if order == 'y':
         choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
-        make_coffee()
+        make_coffee = True
     else:
         print("Thank you")
-        exit()
+        make_coffee = False
