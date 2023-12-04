@@ -46,26 +46,20 @@ def report():
 
 
 # TODO 3. Calculate cost of chosen coffee
-def cal_cost(choose):
+def cal_cost():
     cost_coffee = MENU[choose]['cost']
     return cost_coffee
 
 
-def update_report(choose):
+def update_report():
     global water, milk, coffee
     water -= MENU[choose]['ingredients']['water']
     milk -= MENU[choose]['ingredients']['milk']
     coffee -= MENU[choose]['ingredients']['coffee']
 
 
-# TODO 4. Process Coins
-def process_coins(quarter, dime, nickle, penny, choose):
-    global money
-    global milk
-    global coffee
-    global water
-
-    # TODO 5. Check resource sufficient?
+# TODO 5. Check resource sufficient?
+def sufficient():
     if ((water < MENU[choose]['ingredients']['water'])
             or
             (milk < MENU[choose]['ingredients']['milk'])
@@ -74,7 +68,16 @@ def process_coins(quarter, dime, nickle, penny, choose):
         print("insufficient ingredients available")
         report()
         exit()
-    cost = cal_cost(choose)
+
+
+# TODO 4. Process Coins
+def process_coins(quarter, dime, nickle, penny):
+    global money
+    global milk
+    global coffee
+    global water
+
+    cost = cal_cost()
     total_paid = ((quarter * 25) + (dime * 10) + (nickle * 5) + penny) / 100
     # TODO 5. Check transcation successfully
     if total_paid < cost:
@@ -82,38 +85,40 @@ def process_coins(quarter, dime, nickle, penny, choose):
     else:
         change = total_paid - cost
         money += cost
-        update_report(choose)
+        update_report()
         print(f"There is ${change} in change. ")
         print(f"Here is your {choose} enjoy it.")
 
 
 # make_coffee = True
 # TODO 5. Make coffee
-def make_coffee(choose):
+def make_coffee():
+    global choose
+    sufficient()
     print('Please insert the coins.')
     quarter = int(input('How many quarters?: '))
     dime = int(input('How many dimes?: '))
     nickle = int(input('How many nickles?: '))
     penny = int(input('How many pennies?: '))
-    process_coins(quarter, dime, nickle, penny, choose)
+    process_coins(quarter, dime, nickle, penny)
 
     more = input('Would you still like to order more coffee . Type "y for yes: ').lower()
     if more == 'y':
         choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
-        make_coffee(choose)
+        make_coffee()
     else:
         print("Thank you for the purchase! Bye")
         exit()
 
 
 if choose != "report":
-    make_coffee(choose)
+    make_coffee()
 else:
     report()
     order = input('Would you still like to order. Type "y for yes: ').lower()
     if order == 'y':
         choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
-        make_coffee(choose)
+        make_coffee()
     else:
         print("Thank you")
         exit()
