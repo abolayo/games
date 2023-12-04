@@ -34,6 +34,7 @@ money = 0
 water = resources['water']
 milk = resources['milk']
 coffee = resources['coffee']
+choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
 
 
 # TODO 2. Output report format
@@ -86,16 +87,9 @@ def process_coins(quarter, dime, nickle, penny, choose):
         print(f"Here is your {choose} enjoy it.")
 
 
-make_coffee = True
+# make_coffee = True
 # TODO 5. Make coffee
-while make_coffee:
-    choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
-    if choose == "report":
-        report()
-        order = input('Would you still like to order. Type "y for yes: ').lower()
-        if order != 'y':
-            make_coffee = False
-    choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
+def make_coffee(choose):
     print('Please insert the coins.')
     quarter = int(input('How many quarters?: '))
     dime = int(input('How many dimes?: '))
@@ -104,6 +98,22 @@ while make_coffee:
     process_coins(quarter, dime, nickle, penny, choose)
 
     more = input('Would you still like to order more coffee . Type "y for yes: ').lower()
-    if more != 'y':
+    if more == 'y':
+        choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
+        make_coffee(choose)
+    else:
         print("Thank you for the purchase! Bye")
-        make_coffee = False
+        exit()
+
+
+if choose != "report":
+    make_coffee(choose)
+else:
+    report()
+    order = input('Would you still like to order. Type "y for yes: ').lower()
+    if order == 'y':
+        choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
+        make_coffee(choose)
+    else:
+        print("Thank you")
+        exit()
