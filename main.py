@@ -29,16 +29,14 @@ resources = {
     "milk": 200,
     "coffee": 100,
 }
-# TODO 1. Output a report
+# TODO 1. Output a report content
 money = 0
 water = resources['water']
 milk = resources['milk']
 coffee = resources['coffee']
-cost_latte = MENU['latte']['cost']
-cost_espresso = MENU['espresso']['cost']
-cost_cappuccino = MENU['cappuccino']['cost']
 
 
+# TODO 2. Output report format
 def report():
     print(f"Water: {water}ml")
     print(f"Milk: {milk}ml")
@@ -46,37 +44,44 @@ def report():
     print(f"Money: ${money}")
 
 
+# TODO 3. Calculate cost of chosen coffee
+def cal_cost(choose):
+    cost_coffee = MENU[choose]['cost']
+    return cost_coffee
 
 
+def update_report(choose):
+    global water, milk, coffee
+    water -= MENU[choose]['ingredients']['water']
+    milk -= MENU[choose]['ingredients']['milk']
+    coffee -= MENU[choose]['ingredients']['coffee']
 
-    # TODO 3. Process Coins
+
+# TODO 4. Process Coins
 def process_coins(quarter, dime, nickle, penny, choose):
     global money
     global milk
     global coffee
     global water
 
-    # TODO 2. Check resource sufficient?
-    if (water < 0) or (milk < 0) or (coffee < 0):
-        print("insufficient ingredients")
+    # TODO 5. Check resource sufficient?
+    if ((water < MENU[choose]['ingredients']['water'])
+            or
+            (milk < MENU[choose]['ingredients']['milk'])
+            or
+            (coffee < MENU[choose]['ingredients']['coffee'])):
+        print("insufficient ingredients available")
         report()
         exit()
-    if choose == 'latte':
-        cost = cost_latte
-    elif choose == 'espresso':
-        cost = cost_espresso
-    else:
-        cost = cost_cappuccino
+    cost = cal_cost(choose)
     total_paid = ((quarter * 25) + (dime * 10) + (nickle * 5) + penny) / 100
-    # TODO 4. Check transcation successfully
+    # TODO 5. Check transcation successfully
     if total_paid < cost:
         print("Sorry that is not enough money, Money refunded.")
     else:
         change = total_paid - cost
         money += cost
-        water -= MENU[choose]['ingredients']['water']
-        milk -= MENU[choose]['ingredients']['milk']
-        coffee -= MENU[choose]['ingredients']['coffee']
+        update_report(choose)
         print(f"There is ${change} in change. ")
         print(f"Here is your {choose} enjoy it.")
 
@@ -102,5 +107,3 @@ while make_coffee:
     if more != 'y':
         print("Thank you for the purchase! Bye")
         make_coffee = False
-
-
