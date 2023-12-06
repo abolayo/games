@@ -2,6 +2,7 @@ MENU = {
     "espresso": {
         "ingredients": {
             "water": 50,
+            "milk": 0,
             "coffee": 18,
         },
         "cost": 1.5,
@@ -65,7 +66,6 @@ def sufficient():
             or
             (coffee < MENU[choose]['ingredients']['coffee'])):
         print("insufficient ingredients available")
-        exit()
 
 
 # TODO 4. Process Coins
@@ -104,6 +104,3 @@ while make_coffee:
     else:
         sufficient()
         process_coins()
-
-
-
