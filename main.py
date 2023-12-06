@@ -34,7 +34,6 @@ money = 0
 water = resources['water']
 milk = resources['milk']
 coffee = resources['coffee']
-choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
 
 
 # TODO 2. Output report format
@@ -70,12 +69,17 @@ def sufficient():
 
 
 # TODO 4. Process Coins
-def process_coins(quarter, dime, nickle, penny):
+def process_coins():
     global money
     global milk
     global coffee
     global water
 
+    print('Please insert the coins.')
+    quarter = int(input('How many quarters?: '))
+    dime = int(input('How many dimes?: '))
+    nickle = int(input('How many nickles?: '))
+    penny = int(input('How many pennies?: '))
     cost = cal_cost()
     total_paid = ((quarter * 25) + (dime * 10) + (nickle * 5) + penny) / 100
     # TODO 5. Check transcation successfully
@@ -89,38 +93,17 @@ def process_coins(quarter, dime, nickle, penny):
         print(f"Here is your {choose} enjoy it.")
 
 
-def ask_more():
-    more = input('Would you still like to order more coffee . Type "y for yes: ').lower()
-    if more == 'y':
-        choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
-        if choose == "report":
-            report()
-    else:
-        print("Thank you for the purchase! Bye")
-        exit()
-
-
 make_coffee = True
 # TODO 5. Make coffee
 while make_coffee:
-    sufficient()
-    print('Please insert the coins.')
-    quarter = int(input('How many quarters?: '))
-    dime = int(input('How many dimes?: '))
-    nickle = int(input('How many nickles?: '))
-    penny = int(input('How many pennies?: '))
-    process_coins(quarter, dime, nickle, penny)
-    ask_more()
-
-
-if choose != "report":
-    make_coffee = True
-else:
-    report()
-    order = input('Would you still like to order. Type "y for yes: ').lower()
-    if order == 'y':
-        choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
-        make_coffee = True
-    else:
-        print("Thank you")
+    choose = input('what would you like? (espresso/latte/cappuccino): ').lower()
+    if choose == 'off':
         make_coffee = False
+    elif choose == 'report':
+        report()
+    else:
+        sufficient()
+        process_coins()
+
+
+
