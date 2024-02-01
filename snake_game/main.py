@@ -32,14 +32,15 @@ while game_is_on:
         food.refresh()
 
     if snake.head.xcor() > 285 or snake.head.xcor() < -285 or snake.head.ycor() > 285 or snake.head.ycor() < -285:
-        snake.head.goto(0, 0)
+        snake.reset()
         scoreboard.foul()
 
     # Head hit the body
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 5:
-            game_is_on = False
-            # scoreboard.game_over()
+            scoreboard.reset()
+            snake.reset()
+
 
 
 screen.exitonclick()
