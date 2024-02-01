@@ -18,7 +18,7 @@ screen.onkey(snake.up, 'Up')
 screen.onkey(snake.down, 'Down')
 screen.onkey(snake.left, 'Left')
 screen.onkey(snake.right, 'Right')
-
+screen.onkey(scoreboard.reset_game, "e")
 
 game_is_on = True
 while game_is_on:
@@ -31,9 +31,9 @@ while game_is_on:
         snake.extended()
         food.refresh()
 
-    if snake.head.xcor() > 285 or snake.head.xcor() < -285 or snake.head.ycor() > 285 or snake.head.ycor() < -285:
+    if snake.head.xcor() > 385 or snake.head.xcor() < -385 or snake.head.ycor() > 385 or snake.head.ycor() < -385:
         snake.reset()
-        scoreboard.foul()
+        scoreboard.reset()
 
     # Head hit the body
     for segment in snake.segments[1:]:
