@@ -41,4 +41,4 @@ class Scoreboard(Turtle):
         if response == "y":
             with open("score.txt", mode="w") as value:
                 value.write(str(0))
-            print("Game reset")
+            print("Game Reset")
