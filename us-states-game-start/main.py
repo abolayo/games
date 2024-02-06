@@ -34,5 +34,5 @@ while len(guessed_states) < 50:
 
         # Update the screen
 
-turtle.mainloop()
+# turtle.mainloop()
 # screen.exitonclick()
