@@ -12,7 +12,8 @@ while game:
     else:
         try:
             output = [nato_dict[letter] for letter in letter_word]
-            print(output)
+
         except KeyError:
             print("Sorry, only letters in the alphabet please!")
-
+        else:
+            print(output)
