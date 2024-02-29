@@ -21,7 +21,7 @@ for turtle_index in range(6):
 while game_on:
     for i in all_turtles:
         i.forward(random.randint(0, 10))
-        if i.xcor() > 230:
+        if i.xcor() > 220:
             game_on = False
             screen.clear()
             winning_color = i.pencolor()

@@ -80,4 +80,5 @@ right_button.grid(row=1, column=0)
 wrong_image = PhotoImage(file="images/wrong.png")
 wrong_button = Button(image=wrong_image, highlightthickness=0, command=remove_word)
 wrong_button.grid(row=1, column=1)
+
 window.mainloop()
