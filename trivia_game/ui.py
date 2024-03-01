@@ -36,12 +36,12 @@ class QuizInterface:
         self.right_button.grid(row=2, column=0)
 
         false_image = PhotoImage(file="images/false.png")
-        self.right_button = Button(
+        self.wrong_button = Button(
             image=false_image,
             highlightthickness=0,
             command=self.use_false
         )
-        self.right_button.grid(row=2, column=1)
+        self.wrong_button.grid(row=2, column=1)
 
         self.get_next_question()
 
@@ -49,9 +49,16 @@ class QuizInterface:
 
     def get_next_question(self):
         self.canvas.config(bg='white')
-        self.score.config(text=f'Score: {self.quiz.score}')
-        q_text = self.quiz.next_question()
-        self.canvas.itemconfig(self.question_text, text=q_text)
+        if self.quiz.still_has_question():
+            self.score.config(text=f'Score: {self.quiz.score}')
+            q_text = self.quiz.next_question()
+            self.canvas.itemconfig(self.question_text, text=q_text)
+        else:
+            self.right_button.config(state='disabled')
+            self.wrong_button.config(state='disabled')
+            bye = f"You've completed the quiz\nYour final score is {self.quiz.score}/{self.quiz.question_number}"
+            self.canvas.itemconfig(self.question_text, text=bye)
+            self.window.after(2000, exit)
 
     def use_true(self):
         self.give_feedback(self.quiz.check_answer('true'))
@@ -66,10 +73,6 @@ class QuizInterface:
             self.canvas.config(bg='green')
         else:
             self.canvas.config(bg="red")
-        if self.quiz.still_has_question():
-            self.window.after(1000, self.get_next_question)
-        else:
-            bye = f"You've completed the quiz\nYour final score is {self.quiz.score}/{self.quiz.question_number}"
-            self.canvas.itemconfig(self.question_text, text=bye)
-            self.window.after(5000, exit)
+        self.window.after(1000, self.get_next_question)
+
 
