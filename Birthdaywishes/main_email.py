@@ -1,20 +1,22 @@
-import random
 import smtplib
 import datetime as dt
+
 my_email = "myemail@gmail.com"
-password = "get_password" # from the sender emai security settings
+password = "get_password"  # from the sender emai security settings
+name = "placeholder"
+day = 0
+email = "email"
 
 now = dt.datetime.now()
 birthdate = "birthdate"
 if now - day == 0:
-    with open('./ReadyToSend/.txt') as quotes_file:
-        all_quotes = quotes_file.readlines()
-        quote = random.choice(all_quotes)
+    with open(f'{name}.txt') as birthday_person:
+        message = birthday_person.readlines()
 
     with smtplib.SMPT("smtp.gmail.com") as connection:
         connection.starttls()
         connection.login(user=my_email, passwd=password)
-        connection.sendmail(to_addrs="gogo@yahoo.com",
+        connection.sendmail(to_addrs=f"{email}",
                             from_addr=my_email,
-                            msg=f"Subject:Hello\n\n{quote}"
+                            msg=f"Subject:Wishes\n\n{message}"
                             )
