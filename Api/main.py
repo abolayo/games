@@ -10,8 +10,8 @@ guessed_states = []
 states = pd.read_csv("nigeria_states.csv")
 all_states = states["state"].to_list()
 
-while len(guessed_states) < 50:
-    answer_state = screen.textinput(title=f"{len(guessed_states)}/50 States Correct",
+while len(guessed_states) < 37:
+    answer_state = screen.textinput(title=f"{len(guessed_states)}/37 States Correct",
                                     prompt="What's another state's name? ").upper()
     if answer_state == "Exit":
         missing_states = [state for state in all_states if state not in guessed_states]
